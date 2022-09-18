@@ -1,0 +1,14 @@
+.nav {
+    grid-area: nav;
+    background-color: darkseagreen;
+}
+.item  a{
+    color: #fff;
+}
+ul {
+    margin: 0;
+    padding: 0;
+}
+li {
+    list-style-type: none;
+}
