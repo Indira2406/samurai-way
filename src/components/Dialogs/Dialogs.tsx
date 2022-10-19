@@ -1,25 +1,35 @@
-import React from 'react';
-import {NavLink} from 'react-router-dom';
-import s from './Dialogs.module.css';
-import {DialogItem} from './DialogItem/DialogItem';
-import Message from './Message/Message';
+import React from "react";
+import s from "./Dialogs.module.css";
+import { DialogItem } from "./DialogItem/DialogItem";
+import Message from "./Message/Message";
 
 export const Dialogs = () => {
+  const dialogsData = [
+    { id: 1, name: "Dimych" },
+    { id: 2, name: "Andrey" },
+    { id: 3, name: "Sveta" },
+    { id: 4, name: "Victor" },
+    { id: 5, name: "Valera" },
+  ];
+  const messageData = [
+    { id: 1, message: "Hi" },
+    { id: 2, message: "How is your IT-Kamasutra?" },
+    { id: 3, message: "Yo" },
+    { id: 4, message: "Yo" },
+    { id: 5, message: "Yo" },
+  ];
   return (
     <div className={s.dialogs}>
       <div className={s.dialogs_items}>
-        <DialogItem name='Dimych' id={1}/>
-        <DialogItem name='Andrey' id={2}/>
-        <DialogItem name='Sveta' id={3}/>
-        <DialogItem name='Victor' id={4}/>
-        <DialogItem name='Valera' id={5}/>
+        {dialogsData.map((dialogs) => (
+          <DialogItem name={dialogs.name} id={dialogs.id} key={dialogs.id} />
+        ))}
       </div>
       <div className={s.messages}>
-        <Message message='Hi'/>
-        <Message message='How is your IT-Kamasutra?'/>
-        <Message message='Yo'/>
+        {messageData.map((message) => (
+          <Message message={message.message} key={message.id}/>
+        ))}
       </div>
     </div>
   );
 };
-
