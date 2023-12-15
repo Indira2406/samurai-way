@@ -1,26 +1,43 @@
 import React from "react";
 import s from "./MyPosts.module.css";
+import { MyPostsPropsType } from "./MyPostsContainer";
 import { Post } from "./Post/Post";
 
-export const MyPosts = () => {
-  const postsData = [
-    { id: 1, post: "Hello", likesCount: 12 },
-    { id: 2, post: "How are you", likesCount: 13 },
-    { id: 3, post: "I am fine", likesCount: 13 },
-    { id: 4, post: "And you?", likesCount: 14 },
-  ];
+
+export const MyPosts = (props: MyPostsPropsType) => {
+  const postsData = props.posts.map((p) => (
+    <Post message={p.post} key={p.id} count={p.likesCount} />
+  ));
+
+  let newPostElement = React.createRef<HTMLTextAreaElement>();
+
+  const addNewPost = () => {
+    props.addNewPost();
+    // dispatch({ type: "ADD-POST" });
+    // dispatch({ type: "UPDATE-NEW-POST-TEXT", newText: "" });
+  };
+
+  const onPostChange = () => {
+    if (newPostElement.current) {
+      const text = newPostElement.current.value;
+      props.onPostChange(text);
+      //     dispatch({ type: "UPDATE-NEW-POST-TEXT", newText: text });
+    }
+  };
+
   return (
     <div className={s.posts}>
       <h2>my post</h2>
       <div>
-        <textarea></textarea> <br />
-        <button>Add post</button>
+        <textarea
+          value={props.newPostText}
+          onChange={onPostChange}
+          ref={newPostElement}
+        />{" "}
+        <br />
+        <button onClick={addNewPost}>Add post</button>
       </div>
-      <div className={s.posts_block}>
-        {postsData.map((post) => (
-          <Post message={post.post} key={post.id} count={post.likesCount}/>
-        ))}
-      </div>
+      <div className={s.posts_block}>{postsData}</div>
     </div>
   );
 };
